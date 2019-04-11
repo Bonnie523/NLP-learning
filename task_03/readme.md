@@ -37,4 +37,53 @@ c、双向最大匹配法：
 
 #### 1.2 词、字符频率统计；   
 （可以使用Python中的collections.Counter模块，也可以自己寻找其他好用的库）
+```
+from collections import Counter
+s = "我/是/一个/测试/句子/，/大家/赶快/来/统计/我/吧/，/大家/赶快/来/统计/我/吧/，/大家/赶快/来/统计/我/吧/，/重要/事情/说/三遍/！/"
+s_list = s.split('/') 
+[s_list.remove(item) for item in s_list if item in '，。！”“']
+list1 = Counter(s_list)
+print(list1)
+```   
+>Counter({'我': 4, '大家': 3, '赶快': 3, '来': 3, '统计': 3, '吧': 3, '是': 1, '一个': 1, '测试': 1, '句子': 1, '重要': 1, '事情': 1, '说': 1, '三遍': 1, '': 1})    
+[参考代码](https://www.cnblogs.com/hycstar/p/9345751.html)  
+
+### 2. 语言分析   
+#### 2.1语言模型中的的unigram、bigram、trigram   
+语言模型就是用来计算一个句子的概率的模型，即P(W1,W2,W3....Wk)   
+* 利用语言模型，可以确定哪个词序列的可能性更大，或者给定若干个词，可以预测下一个最可能出现的词语。举个音字转换的例子来说，输入拼音串为nixianzaiganshenme，对应的输出可以有多种形式，如你现在干什么、你西安再赶什么、等等，那么到底哪个才是正确的转换结果呢，利用语言模型，我们知道前者的概率大于后者，因此转换成前者在多数情况下比较合理。再举一个机器翻译的例子，给定一个汉语句子为李明正在家里看电视，可以翻译为Li Ming is watching TV at home、Li Ming at home is watching TV、等等，同样根据语言模型，我们知道前者的概率大于后者，所以翻译成前者比较合理。   
+
+那么如何计算一个句子的概率呢？给定句子（词语序列）  
+S(W1,W2,W3....Wk)   
+它的概率可以表示为：    
+P(S) = P(W1,W2,W3....Wk) =  P(W1)P(W2|W1)P(W3|W1,W2)....P(Wk|W1,W2,..Wk-1)  （1）
+由于上式中的参数过多，因此需要近似的计算方法。常见的方法有n-gram模型方法、决策树方法、最大熵模型方法、最大熵马尔科夫模型方法、条件随机域方法、神经网络方法，等等。   
+##### N-gram模型    
+n-gram模型也称为n-1阶马尔科夫模型，它有一个有限历史假设：当前词的出现概率仅仅与前面n-1个词相关。   
+P(S) = P(W1,W2,W3....Wk) =  连乘  P(Wi|Wi-n+1,....Wi-1)   
+当n取1、2、3时，n-gram模型分别称为unigram、bigram和trigram语言模型。   
+
+#### 2.2 unigram、bigram频率统计  
+unigram 一元分词，把句子分成一个一个的汉字   
+bigram 二元分词，把句子从头到尾每两个字组成一个词语   
+trigram 三元分词，把句子从头到尾每三个字组成一个词语   
+
+### 3. 文本矩阵化  
+（要求采用词袋模型且是词级别的矩阵化）
+#### 3.1分词（jieba）  
+```
+# encoding=utf-8
+import jieba
+seg_list = jieba.cut("我来到北京清华大学", cut_all=True)
+print("全模式: " + "/ ".join(seg_list))  # 全模式
+
+seg_list = jieba.cut("我来到北京清华大学", cut_all=False)
+print("精确模式（默认）: " + "/ ".join(seg_list))  # 精确模式
+
+#全模式: 我/ 来到/ 北京/ 清华/ 清华大学/ 华大/ 大学
+#精确模式（默认）: 我/ 来到/ 北京/ 清华大学
+```   
+[jieba - github](https://github.com/fxsjy/jieba)
+#### 3.2 去停用词；构造词表   
+
 
