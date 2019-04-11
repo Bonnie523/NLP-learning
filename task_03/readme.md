@@ -85,5 +85,5 @@ print("精确模式（默认）: " + "/ ".join(seg_list))  # 精确模式
 ```   
 [jieba - github](https://github.com/fxsjy/jieba)
 #### 3.2 去停用词；构造词表   
-
+应该是没有理解词表什么意思，程序跑的也不是很好，等我后续补上-^-^-
 
