@@ -99,7 +99,7 @@ print (array)
 ```
 [刘建平文本挖掘之TF-IDF](https://www.cnblogs.com/pinard/p/6693230.html)   
 ## 3. 互信息的原理。  
-![images/task_04TF-IDF](images/互信息.png)   
+![images/task_04TF-IDF](互信息图.jpg)   
 其衡量的是两个随机变量之间的相关性，即一个随机变量中包含的关于另一个随机变量的信息量。所谓的随机变量，即随机试验结
 果的量的表示，可以简单理解为按照一个概率分布进行取值的变量，比如随机抽查的一个人的身高就是一个随机变量。
 可以看出，互信息其实就是对X和Y的所有可能的取值情况的点互信息PMI的加权和。因此，点互信息这个名字还是很形象的。   
@@ -110,5 +110,10 @@ from sklearn import metrics as mr
 mr.mutual_info_score(label,x)
 ```
 label、x为list或array。
-计算x和label的互信息。 
-
+计算x和label的互信息。  
+***  
+参考资料 
+文本挖掘预处理之TF-IDF：文本挖掘预处理之TF-IDF - 刘建平Pinard - 博客园 (https://www.cnblogs.com/pinard/p/6693230.html)
+使用不同的方法计算TF-IDF值：使用不同的方法计算TF-IDF值 - 简书(https://www.jianshu.com/p/f3b92124cd2b)
+sklearn-点互信息和互信息：sklearn：点互信息和互信息 - 专注计算机体系结构 - CSDN博客 (https://blog.csdn.net/u013710265/article/details/72848755)
+如何进行特征选择（理论篇）机器学习你会遇到的“坑”：如何进行特征选择（理论篇）机器学习你会遇到的“坑” (https://baijiahao.baidu.com/s?id=1604074325918456186&wfr=spider&for=pc)
