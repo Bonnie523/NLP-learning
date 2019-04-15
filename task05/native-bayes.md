@@ -17,7 +17,7 @@ P(C|X)称为C的后验概率，与之相对的，P(C)称为C的先验概率。
 忽略掉，后验概率P(C|X)=P(X|C)P(C)，先验概率P(C)可以通过计算训练集中属于每一个类的训练样本所占的比例，对类条件概率P(X|C)的估计，
 我们只谈论朴素贝叶斯分类器方法，因为朴素贝叶斯假设事物属性之间相互条件独立，P(X|C)=∏P(xi|ci)。      
 **[scikit-learn 朴素贝叶斯类库使用小结-刘建平 ](https://www.cnblogs.com/pinard/p/6074222.html)** 写的很好，过程推导很详细    
-参考博文   
+参考博文 
 [利用朴素贝叶斯进行新闻文本分类](https://blog.csdn.net/zheng_weibin/article/details/82773323)     
 [【NLP实践-Task4 传统机器学习】朴素贝叶斯 & SVM & LDA文本分类](https://blog.csdn.net/yyy430/article/details/88346920)    
 ## 2.朴素贝叶斯模型应用场景    
@@ -79,4 +79,5 @@ weighted avg       0.96      0.96      0.96      2000
 
 nb.score(x_test, y_test)
 #0.96350000000000002
-```    
+```     
+[git地址](https://github.com/Bonnie523/NLP-learning/blob/master/task05/贝叶斯文本分类-cnews.ipynb)
