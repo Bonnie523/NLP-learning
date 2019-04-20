@@ -16,7 +16,7 @@
 概率问题慢慢悟吧还是^_^        
 #### LDA(Latent Dirichlet allocation)主题模型原理（隐含狄利克雷分布）    
 
-对于语料库中的每篇文档，LDA定义了如下生成过程（generative process）：   
+&emsp;&emsp;对于语料库中的每篇文档，LDA定义了如下生成过程（generative process）：   
 (1) 对每一篇文档，从主题分布中抽取一个主题    
 (2) 从上述被抽到的主题所对应的单词分布中抽取一个单词    
 (3) 重复上述过程直至遍历文档中的每一个单词。    
@@ -27,14 +27,64 @@
 * 推荐系统：应用LDA挖掘物品主题，计算主题相似度    
 * 情感分析：学习出用户讨论、用户评论中的内容主题   
 ## 3. LDA优缺点   
-LDA算法既可以用来降维，又可以用来分类，但是目前来说，主要还是用于降维。  
-LDA算法的主要**优点**有：   
+&emsp;&emsp;LDA算法既可以用来降维，又可以用来分类，但是目前来说，主要还是用于降维。  
+&emsp;&emsp;LDA算法的主要**优点**有：   
 1）在降维过程中可以使用类别的先验知识经验，而像PCA这样的无监督学习则无法使用类别先验知识。   
 2）LDA在样本分类信息依赖均值而不是方差的时候，比PCA之类的算法较优。   
-LDA算法的主要**缺点**有：   
+&emsp;&emsp;LDA算法的主要**缺点**有：   
 1）LDA不适合对非高斯分布样本进行降维，PCA也有这个问题。   
 2）LDA降维最多降到类别数k-1的维数，如果我们降维的维度大于k-1，则不能使用LDA。当然目前有一些LDA的进化版算法可以绕过这个问题。   
 3）LDA在样本分类信息依赖方差而不是均值的时候，降维效果不好。   
 4）LDA可能过度拟合数据。    
 ## 4、LDA 参数学习   
+LDA在sklearn中，sklearn.decomposition.LatentDirichletAllocation()   
+主要参数：   
+```
+n_components : int, optional (default=10)
+    主题数
 
+doc_topic_prior : float, optional (default=None)
+    文档主题先验Dirichlet分布θd的参数α
+
+topic_word_prior : float, optional (default=None)
+    主题词先验Dirichlet分布βk的参数η
+
+learning_method : 'batch' | 'online', default='online'
+    LDA的求解算法。有 ‘batch’ 和 ‘online’两种选择
+
+learning_decay : float, optional (default=0.7)
+   控制"online"算法的学习率，默认是0.7
+
+learning_offset : float, optional (default=10.)
+    仅在算法使用"online"时有意义，取值要大于1。用来减小前面训练样本批次对最终模型的影响
+    
+max_iter : integer, optional (default=10)
+    EM算法的最大迭代次数
+
+batch_size : int, optional (default=128)
+   仅在算法使用"online"时有意义， 即每次EM算法迭代时使用的文档样本的数量。
+
+evaluate_every : int, optional (default=0)
+    多久评估一次perplexity。仅用于`fit`方法。将其设置为0或负数以不评估perplexity
+     训练。
+     
+total_samples : int, optional (default=1e6)
+    仅在算法使用"online"时有意义， 即分步训练时每一批文档样本的数量。在使用partial_fit函数时需要。
+
+perp_tol : float, optional (default=1e-1)
+    batch的perplexity容忍度。
+
+mean_change_tol : float, optional (default=1e-3)
+    即E步更新变分参数的阈值，所有变分参数更新小于阈值则E步结束，转入M步。
+
+max_doc_update_iter : int (default=100)
+    即E步更新变分参数的最大迭代次数，如果E步迭代次数达到阈值，则转入M步。
+
+n_jobs : int, optional (default=1)
+   在E步中使用的资源数量。 如果为-1，则使用所有CPU。
+     ``n_jobs``低于-1，（n_cpus + 1 + n_jobs）被使用。
+
+verbose : int, optional (default=0)
+    详细程度。
+```
+## 使用LDA生成主题特征，在之前特征的基础上加入主题特征进行文本分类   
