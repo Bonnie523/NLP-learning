@@ -4,7 +4,7 @@
 不同的是，LSA 将词和文档映射到潜在语义空间，从而去除了原始向量空间中的一些“噪音”，提高了信息检索的精确度。    
 &emsp;&emsp;如何得到这个低维空间呢，和PCA采用特征值分解的思想类似，作者采用了奇异值分解(Singular Value Decomposition)的方式来求解Latent Semantic Space。    
 &emsp;&emsp;下图形象的展示了LSA的过程：   
-![LSA](./images/LSA.jpg)  
+![LSA](./LSA.jpg)  
 &emsp;&emsp;三个矩阵有非常清楚的物理含义。第一个矩阵 U 中的每一行表示意思相关的一类词，其中的每个非零元素表示这类词中每个词的重要性（或者说相关性），数值越大越相关。最后一个矩阵 V 中的每一列表示同一主题一类文章，其中每个元素表示这类文章中每篇文章的相关性。中间的矩阵 D 则表示类词和文章类之间的相关性。因此，我们只要对关联矩阵 X 进行一次奇异值分解，我们就可以同时完成了近义词分类和文章的分类。（同时得到每类文章和每类词的相关性）。    
 #### pLSA简介
 &emsp;&emsp;一篇文章通常是由多个主题构成的，而每一个主题大概可以用与该主题相关的频率最高的一些词来描述。对于语言学，容易想到的词包括：语法，句子，主语等；对于概率统计，容易想到的词包括：概率，模型，均值等；
@@ -88,3 +88,29 @@ verbose : int, optional (default=0)
     详细程度。
 ```
 ## 5.使用LDA生成主题特征，在之前特征的基础上加入主题特征进行文本分类   
+```
+from sklearn.decomposition import LatentDirichletAllocation
+n_topic = 10
+lda = LatentDirichletAllocation(n_topics=n_topic, 
+                                max_iter=50,
+                                learning_method='batch')
+lda.fit(tf) #tf即为Document_word Sparse Matrix     
+out...
+Topic #0:
+中国 发展 问题 工作 经济 国家 表示 进行 合作 建设 政府 国际 加强 部门 规定 社会 记者 要求 相关 会议
+Topic #1:
+搭配 时尚 设计 风格 组图 性感 黑色 选择 造型 导语 白色 感觉 外套 流行 颜色 款式 气质 色彩 明星 装扮
+Topic #2:
+功能 像素 采用 拍摄 支持 机身 英寸 镜头 佳能 光学 相机 拥有 索尼 高清 自动 对焦 性能 具有 使用 编辑
+Topic #3:
+电影 一个 导演 微博 新浪 影片 觉得 表示 中国 记者 现在 观众 娱乐 拍摄 已经 票房 希望 角色 演员 知道
+Topic #4:
+产品 企业 家具 一个 品牌 市场 消费者 行业 中国 家居 发展 公司 装修 一些 设计 服务 现在 销售 问题 环保
+Topic #5:
+学生 留学 美国 移民 大学 中国 申请 学校 教育 学习 专业 考试 一个 签证 留学生 英国 孩子 工作 选择 课程
+Topic #6:
+比赛 球队 篮板 球员 季后赛 时间 赛季 热火 火箭 新浪 进攻 已经 防守 湖人 一个 命中 体育讯 助攻 表现 三分
+``` 
+[git]()  
+[参考文章1](https://blog.csdn.net/TiffanyRabbit/article/details/76445909)   
+[参考文章2](https://blog.csdn.net/chen_yiwei/article/details/88370526)
