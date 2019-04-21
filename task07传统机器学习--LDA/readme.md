@@ -112,5 +112,5 @@ Topic #6:
 比赛 球队 篮板 球员 季后赛 时间 赛季 热火 火箭 新浪 进攻 已经 防守 湖人 一个 命中 体育讯 助攻 表现 三分
 ``` 
 [git]()  
-[参考文章1](https://blog.csdn.net/TiffanyRabbit/article/details/76445909)   
-[参考文章2](https://blog.csdn.net/chen_yiwei/article/details/88370526)
+[【sklearn】利用sklearn训练LDA主题模型及调参详解](https://blog.csdn.net/TiffanyRabbit/article/details/76445909)   
+[NLP实践四：LDA主题模型](https://blog.csdn.net/chen_yiwei/article/details/88370526)
