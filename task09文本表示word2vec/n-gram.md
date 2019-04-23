@@ -2,8 +2,8 @@
 &emsp;wikipedia上有关n-gram的定义：      
 &emsp;n-gram是一种统计语言模型，用来根据前(n-1)个item来预测第n个item。在应用层面，这些item可以是音素（语音识别应用）、字符（输入法应用）、词（分词应用）或碱基对（基因信息）。一般来讲，可以从大规模文本或音频语料库生成n-gram模型。    
 &emsp;习惯上，1-gram叫unigram，2-gram称为bigram，3-gram是trigram。还有four-gram、five-gram等，不过大于n>5的应用很少见。   
-&emsp;原文：https://blog.csdn.net/ahmanz/article/details/51273500 
-
+&emsp;原文：https://blog.csdn.net/ahmanz/article/details/51273500    
+    
 ## 2.n-gram简单理解   
 ![n-gram简单理解](./images/n-gram简单理解.png)   
 [N-gram语言模型简单介绍 ](https://www.cnblogs.com/wzm-xu/p/4229819.html)   
@@ -28,6 +28,7 @@ P(no|yes,no) = 1/2
 P(yes|no,no) = 2/5   
 P("\BG"|no,yes) = 1/2   
 P(s) = 1/2*1*1/2*2/5*1/2 = 0.05，即句子s属于“背景”的概率为0.05。   
+   
 &emsp;**为了避免数据溢出、提高性能，通常会使用取log后使用加法运算替代乘法运算。**   
 &emsp;log(p1*p2*p3*p4) = log(p1) + log(p2) + log(p3) + log(p4)    
 &emsp;那么我们如何用N-gram来做篇章单元的分类器呢？其实很简单了，只要根据每个类别的语料库训练各自的语言模型，也就是上面的频率分布表，实质上就是每一个篇章单元的类别都有一个概率分布，当新来一个篇章单元的时候，只要根据各自的语言模型，计算出每个语言模型下这个篇章单元的发生概率，篇章单元在哪个模型的概率大，这篇文本就属于哪个类别了。     
