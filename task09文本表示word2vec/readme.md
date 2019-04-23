@@ -42,3 +42,28 @@ class gensim.models.word2vec.Word2Vec(sentences=None, corpus_file=None, size=100
 9. iter：随机梯度下降法中迭代的最大次数，默认是5。对于大语料，可以增大这个值。   
 10. alpha：在随机梯度下降法中迭代的初始步长。算法原理篇中标记为η，默认是0.025。   
 11. min_alpha: 由于算法支持在迭代的过程中逐渐减小步长，min_alpha给出了最小的迭代步。   
+
+**代码实现**  
+```
+#简单案例
+import gensim
+from gensim.models import word2vec
+
+# 设置输出日志
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+
+# 直接用gemsim提供的API去读取txt文件，读取文件的API有LineSentence 和 Text8Corpus, PathLineSentences等。
+sentences = word2vec.LineSentence("./wordEmbdiing.txt")
+sentences1 = word2vec.Text8Corpus(u'分词后的用户评论.txt')
+
+# 训练模型，词向量的长度设置为200， 迭代次数为8，采用skip-gram模型，模型保存为bin格式
+model = gensim.models.Word2Vec(sentences, size=200, sg=1, iter=8)  
+model.wv.save_word2vec_format("./word2Vec" + ".bin", binary=True) 
+
+# 加载bin格式的模型
+wordVec = gensim.models.KeyedVectors.load_word2vec_format("word2Vec.bin", binary=True)
+
+```
+![训练过程](./images/训练过程.png)   
+[代码参考](https://www.cnblogs.com/jiangxinyang/p/10207273.html)   
+[其他人的作业-代码写的可以](https://yu-shui.github.io/)  
