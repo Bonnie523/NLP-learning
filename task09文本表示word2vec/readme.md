@@ -6,6 +6,7 @@
 ### 1. 文本表示   
 * 离散表示的代表就是词袋模型，one-hot（也叫独热编码）、TF-IDF、n-gram都可以看作是词袋模型。   
 * 分布式表示也叫做词嵌入（word embedding），经典模型是word2vec，还包括后来的Glove、ELMO、GPT和BERT。   
+  
 词袋模型：离散、高维、稀疏。    
 1. 离散：无法衡量词向量之间的关系。比如酒店、宾馆、旅社 三者都只在某一个固定的位置为 1 ，所以找不到三者的关系，各种度量(与或非、距离)都不合适，即太稀疏，很难捕捉到文本的含义。   
 2. 高维：词表维度随着语料库增长膨胀，n-gram 序列随语料库膨胀更快。   
@@ -20,6 +21,7 @@
 
 [基于 Hierarchical Softmax 的模型](https://blog.csdn.net/itplus/article/details/37969817)   
 &emsp;[文章介绍]word2vec 是 Google 于 2013 年开源推出的一个用于获取 word vector 的工具包，它简单、高效，因此引起了很多人的关注。由于 word2vec 的作者 Tomas Mikolov 在两篇相关的论文 [3,4] 中并没有谈及太多算法细节，因而在一定程度上增加了这个工具包的神秘感。一些按捺不住的人于是选择了通过解剖源代码的方式来一窥究竟，出于好奇，我也成为了他们中的一员。读完代码后，觉得收获颇多，整理成文，给有需要的朋友参考。     
+   
 [word2vec原理(二) 基于Hierarchical Softmax的模型-刘建平](http://www.cnblogs.com/pinard/p/7243513.html#!comments)   
 &emsp;写的很详细，特别是需要看评论，会解释你很多困惑   
 &emsp;怎么说呢，文章从昨天开始，认真看完了，整体了解，感知。贴了一些好的评论在Word2vec.md里    
