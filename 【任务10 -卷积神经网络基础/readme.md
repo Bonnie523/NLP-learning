@@ -105,5 +105,26 @@ print(y2_decov.shape)
 print(x2_cov.shape)
 ```  
 ## 3. 池化运算的定义、种类（最大池化、平均池化等）、动机。    
+池化层：对输入的特征图进行压缩，一方面使特征图变小，简化网络计算复杂度；一方面进行特征压缩，提取主要特征，如下：  
+![pooling-layer](./images/pooling-layer.png)  
+池化操作一般有两种，一种是Avy Pooling,一种是max Pooling,如下：   
+![max-pooling1](./images/max-pooling1.png)  
+同样地采用一个2*2的filter,max pooling是在每一个区域中寻找最大值，这里的stride=2,最终在原特征图中提取主要特征得到右图。    
+（Avy pooling现在不怎么用了（其实就是平均池化层），方法是对每一个2*2的区域元素求和，再除以4，得到主要特征），而一般的filter取2*2,最大取3*3,stride取2，压缩为原来的1/4.    
+注意：这里的pooling操作是特征图缩小，有可能影响网络的准确度，因此可以通过增加特征图的深度来弥补（这里的深度变为原来的2倍）。    
 
+tf.nn.max_pool用法：   
 
+max pooling是CNN当中的最大值池化操作，其实用法和卷积很类似   
+
+tf.nn.max_pool(value, ksize, strides, padding, name=None)    
+参数是四个，和卷积很类似：    
+value：需要池化的输入，一般池化层接在卷积层后面，所以输入通常是feature map，依然是[batch, height, width, channels]这样的shape   
+
+ksize：池化窗口的大小，取一个四维向量，一般是[1, height, width, 1]，因为我们不想在batch和channels上做池化，所以这两个维度设为了1    
+
+strides：和卷积类似，窗口在每一个维度上滑动的步长，一般也是[1, stride,stride, 1]   
+
+padding：和卷积类似，可以取’VALID’ 或者’SAME’   
+
+返回一个Tensor，类型不变，shape仍然是[batch, height, width, channels]这种形式   
