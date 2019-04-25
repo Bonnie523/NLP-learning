@@ -33,7 +33,10 @@
 检测鸟嘴的位置，可以用一个fliter(固定的模式)来检测图中到底有没有鸟嘴，而不需要根据位置不同设计不同的patter      
 ![池化1](./images/池化1.png)   
 更改图片的大小，上图中变为十分之一（通过去掉奇数列和偶数行），不会影响对图像的影响，同时可以扩大神经元的视野范围   
+[李宏毅-字幕-CNN](https://www.bilibili.com/video/av44989461?from=search&seid=7846858415584841644)   
 ![wholeCNN](./images/wholeCNN.PNG)   
+![wholeCNN](./images/联系到RNN.PNG)   
+![cnn-use-in-text](./images/cnn-use-in-text.PNG)   
 >tf.nn.conv2d(input, filter, strides, padding, use_cudnn_on_gpu=True,  data_format='NHWC',dilations=[1, 1, 1, 1],name=None)    
 
 * input： 指需要做卷积的输入图像，它要求是一个Tensor，具有[batch, in_height, in_width, in_channels]这样的shape，具体含义是[训练时一个batch的图片数量, 图片高度, 图片宽度, 图像通道数]，注意这是一个4维的Tensor，要求类型为float32和float64其中之一   
