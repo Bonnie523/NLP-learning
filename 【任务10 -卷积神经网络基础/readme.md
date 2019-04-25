@@ -140,4 +140,8 @@ max pooling是CNN当中的最大值池化操作，其实用法和卷积很类似
 2. 卷积层，卷积层设计三个不同大小的卷积核，【3*300，4*300，5*300】*，每个不同大小的卷积核各128个。卷积后分别成为【1998*1*128，1997*1*128，1996*1*128*】*的feture-map，这里为什么会变成大小这样的，是因为tensorflow的卷积方式采用same 或者 valid的形式，这种卷积的方式采用的是valid 具体大家可以看看官方文档。    
 3. 经过卷积之后，随后是三个池化层，池化层的目的是缩小特征图，这里同池化层的设置，将卷积层的特征池化之后的图为【1*1*128，1*1*128，1*1*28】，经过reshape维度合并成【3*128】*。4、全连接层就不必说，采用softmax就可以解决了。  
 
+[基于CNN+tensorflow训练50000条新闻文本并实现分类](https://blog.csdn.net/m0_38088359/article/details/83004972)    
+[NLP-使用CNN进行文本分类](https://blog.csdn.net/spring_willow/article/details/80011161#二使用实例word2veccnn进行文本分类)  
+[CNN在文本分类的应用(内有代码实现) 论文Convolutional Neural Networks for Sentence Classification](https://blog.csdn.net/u010960155/article/details/81112351)    
+[用Tensorflow实现CNN文本分类(详细解释及TextCNN代码解释)](https://blog.csdn.net/chivalrousli/article/details/77168397)   
 
