@@ -15,8 +15,8 @@
 ![三通道卷积描述](./images/三通道卷积描述.png)   
 ![三通道卷积过程](./images/三通道卷积过程.png)   
 [卷积神经网络之卷积计算、作用与思想 ](https://www.cnblogs.com/shine-lee/p/9932226.html)   
-**理解卷积**
-这里提供两个理解卷积的角度：
+**理解卷积**   
+这里提供两个理解卷积的角度：    
 &emsp;&emsp;从函数（或者说映射、变换）的角度理解。 卷积过程是在图像每个位置进行线性变换映射成新值的过程，将卷积核看成权重，若拉成向量记为w
 ，图像对应位置的像素拉成向量记为x，则该位置卷积结果为y=w′x+b，即向量内积+偏置，将x变换为y。从这个角度看，**多层卷积是在进行逐层映射，整体构成一个复杂函数，训练过程是在学习每个局部映射所需的权重，训练过程可以看成是函数拟合的过程。**     
 
@@ -28,6 +28,38 @@
 * 等变表示：卷积网络具有平移等变的性质。  
 ![动机1](./images/动机1.png)     
 ![动机2](./images/动机2.png)     
-检测鸟嘴的位置，可以用一个fliter(固定的模式)来检测图中到底有没有鸟嘴   
+![动机2-2](./images/动机2-2.png)     
+它出现在左上跟左下角的位置，都可以用filter1来检测出来   
+检测鸟嘴的位置，可以用一个fliter(固定的模式)来检测图中到底有没有鸟嘴，而不需要根据位置不同设计不同的patter      
 ![池化1](./images/池化1.png)   
 更改图片的大小，上图中变为十分之一（通过去掉奇数列和偶数行），不会影响对图像的影响，同时可以扩大神经元的视野范围   
+![wholeCNN](./images/wholeCNN.PNG)   
+>tf.nn.conv2d(input, filter, strides, padding, use_cudnn_on_gpu=True,  data_format='NHWC',dilations=[1, 1, 1, 1],name=None)    
+
+* input： 指需要做卷积的输入图像，它要求是一个Tensor，具有[batch, in_height, in_width, in_channels]这样的shape，具体含义是[训练时一个batch的图片数量, 图片高度, 图片宽度, 图像通道数]，注意这是一个4维的Tensor，要求类型为float32和float64其中之一   
+* filter： 相当于CNN中的卷积核，它要求是一个Tensor，具有[filter_height, filter_width, in_channels, out_channels]这样的shape，具体含义是[卷积核的高度，卷积核的宽度，图像通道数，卷积核个数]，要求类型与参数input相同，有一个地方需要注意，第三维in_channels，就是参数input的第四维     
+* strides：卷积时在图像每一维的步长，这是一个一维的向量，长度4.  strides[0]=strides[3]=1   
+* padding： string类型的量，只能是”SAME”,”VALID”其中之一，这个值决定了不同的卷积方式（后面会介绍）  
+* use_cudnn_on_gpu： bool类型，是否使用cudnn加速，默认为true   
+* dilation指的是空洞卷积，默认为1。关于空洞卷积可以查看知乎上大佬的https://www.zhihu.com/question/54149221/answer/192025860 我认为还是比较容易理解。   
+--结果返回一个Tensor，这个输出，就是我们常说的feature map--
+```
+#步长不为1的情况，文档里说了对于图片，因为只有两维，通常strides取[1，stride，stride，1]
+
+input = tf.Variable(tf.random_normal([1,5,5,5]))
+filter = tf.Variable(tf.random_normal([3,3,5,7]))
+
+op = tf.nn.conv2d(input, filter, strides=[1, 2, 2, 1], padding='SAME')1234
+
+#此时，输出7张3×3的feature map 
+```
+[【TensorFlow】tf.nn.conv2d是怎样实现卷积的？](https://blog.csdn.net/mao_xiao_feng/article/details/78004522)   
+![padding](./images/padding.png)   
+&emsp;不同的padding方式,VALID是采用丢弃的方式,比如上述的input_width=13,只允许滑动2次,多余的元素全部丢掉     
+&emsp;SAME的方式,采用的是补全的方式,对于上述的情况,允许滑动3次,但是需要补3个元素,左奇右偶,在左边补一个0,右边补2个0  
+
+## 2. 反卷积(tf.nn.conv2d_transpose)    
+首先无论你如何理解反卷积，请时刻记住一点，反卷积操作是卷积的反向,(转置卷积)   
+>conv2d_transpose(value, filter, output_shape, strides, padding="SAME", data_format="NHWC", name=None)  
+
+原文：https://blog.csdn.net/mao_xiao_feng/article/details/71713358 
