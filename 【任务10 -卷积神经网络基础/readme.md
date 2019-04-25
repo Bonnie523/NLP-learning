@@ -74,7 +74,10 @@ op = tf.nn.conv2d(input, filter, strides=[1, 2, 2, 1], padding='SAME')1234
   -----了解卷积的过程，参考另一篇文章：http://blog.csdn.net/mao_xiao_feng/article/details/53444333
 [tf.nn.conv2d_transpose是怎样实现反卷积的？](https://blog.csdn.net/mao_xiao_feng/article/details/71713358)   
   
-&emsp;&emsp;又一个很重要的部分！tf.nn.conv2d中的filter参数，是[filter_height, filter_width, in_channels, out_channels]的形式，而tf.nn.conv2d_transpose中的filter参数，是[filter_height, filter_width, out_channels，in_channels]的形式，注意in_channels和out_channels反过来了！因为两者互为反向，所以输入输出要调换位置   
+&emsp;&emsp;又一个很重要的部分！tf.nn.conv2d中的filter参数，是[filter_height, filter_width, in_channels, out_channels]的形式，而tf.nn.conv2d_transpose中的filter参数，是[filter_height, filter_width, out_channels，in_channels]的形式，注意in_channels和out_channels反过来了！因为两者互为反向，所以输入输出要调换位置    
+      
+&emsp;&emsp;**为什么一定要有output_channel呢**。这是因为假如卷积之前我的两个输入的维度分别为[batch_size, 10, 10, 3]， [batch_size, 9, 9, 3], 我采用padding=same, strides = [1, 2, 2, 1]的方式， 卷积后得到的维度竟然是相同的[batch_size, 5, 5, output_channels]！这时你就明白为什么我们在反卷积的时候需要输入我们想要得到的维度output_shape了吧。    
+
 ```
 
 import tensorflow as tf
